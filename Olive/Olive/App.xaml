@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Olive.App">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!-- VALIDATIONS -->
+            <Style
+				x:Key="ValidationEntryErrorStyle"
+				TargetType="Label">
+                <Setter
+					Property="BackgroundColor"
+					Value="Transparent" />
+                <Setter
+					Property="TextColor"
+					Value="#ff0000" />
+                <Setter
+					Property="FontSize"
+					Value="12" />
+                <Setter
+					Property="HorizontalTextAlignment"
+					Value="Start" />
+                <Setter
+					Property="HorizontalOptions"
+					Value="FillAndExpand" />
+            </Style>
+
+            <Style
+				x:Key="ValidationEntryWarningStyle"
+				TargetType="Label">
+                <Setter
+					Property="BackgroundColor"
+					Value="#ff0000" />
+                <Setter
+					Property="TextColor"
+					Value="#ffffff" />
+                <Setter
+					Property="FontSize"
+					Value="12" />
+
+                <Setter
+					Property="HorizontalTextAlignment"
+					Value="Start" />
+                <Setter
+					Property="HorizontalOptions"
+					Value="FillAndExpand" />
+            </Style>
+            </ResourceDictionary>
+    </Application.Resources>
+</Application>

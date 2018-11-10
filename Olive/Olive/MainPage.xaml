@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Olive"
+             x:Class="Olive.MainPage">
+
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <ContentView x:Name="Placeholder" Grid.Row="1" HorizontalOptions="CenterAndExpand"/>
+            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="2"/>
+            </Grid.RowDefinitions>
+
+                <StackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="accountIcon.png" WidthRequest="24" Margin="10,0,0,0"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="MyAccountClicked"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+                
+                <StackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="logoIcon.png" HorizontalOptions="Center" HeightRequest="50"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OliveClicked"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+
+                <StackLayout Grid.Column="2" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image Source="settingsIcon.png" WidthRequest="24" Margin="0,0,10,0"/>
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SettingsClicked"/>
+                    </StackLayout.GestureRecognizers>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+
+</ContentPage>
