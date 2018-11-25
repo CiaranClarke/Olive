@@ -14,7 +14,8 @@ namespace Olive.Views
 	{
 		public MyAccountPage ()
 		{
-			InitializeComponent ();
+            NavigationPage.SetHasNavigationBar(this, false);
+            InitializeComponent ();
 		}
 	}
 }

@@ -46,7 +46,7 @@ namespace Olive.Views
         {
             if (!String.IsNullOrEmpty(txt_Email.Text) & !String.IsNullOrEmpty(txt_Password.Text))
             {
-                var main = new MainPage();
+                var main = new MainPage1();
                 await Navigation.PushAsync(main, false);
             }
             else

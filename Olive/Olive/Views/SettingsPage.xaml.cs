@@ -14,7 +14,8 @@ namespace Olive.Views
 	{
 		public SettingsPage ()
 		{
-			InitializeComponent ();
+            NavigationPage.SetHasNavigationBar(this, false);
+            InitializeComponent ();
 		}
 
         public void LogOutClicked(object sender, EventArgs e)

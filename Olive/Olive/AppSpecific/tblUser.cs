@@ -37,10 +37,10 @@ namespace Olive.AppSpecific
         public string userCity
         { get; set; }
         [MaxLength(25)]
-        public string IpCoCounty
+        public string userCounty
         { get; set; }
         [MaxLength(10)]
-        public string IpCoPostcode
+        public string userPostcode
         { get; set; }
         [NotNull]
         public DateTime userDateAdded

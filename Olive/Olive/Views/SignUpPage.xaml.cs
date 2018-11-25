@@ -1,4 +1,5 @@
-﻿using Olive.Interfaces;
+﻿using Olive.AppSpecific;
+using Olive.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
+
 using Xamarin.Forms.Xaml;
 
 namespace Olive.Views
@@ -16,6 +18,7 @@ namespace Olive.Views
 	{
         object locker = new object(); // class level private field
         private TapGestureRecognizer tapGestureRecognizer = new TapGestureRecognizer();
+        private const string FirebaseURL = "https://olive-4a870.firebaseio.com/"; //Firebase Database URL  
 
         public SignUpPage ()
 		{
@@ -37,6 +40,17 @@ namespace Olive.Views
         {
             var signUpPage = new LoginPage();
             await Navigation.PushAsync(signUpPage, false);
+        }
+
+        private async void CreateUser()
+        {
+            //tblUser user = new tblUser();
+            //user.userEmail = txt_Email.Text;
+            //user.userPassword = txt_Password.Text;
+            //var firebase = new FirebaseClient(FirebaseURL);
+            ////Add Item  
+            //var item = await firebase.Child("users").PostAsync<tblUser>(user);
+            ////await LoadData();
         }
 
         private async void RegisterClicked(object sender, EventArgs e)
@@ -83,7 +97,7 @@ namespace Olive.Views
                     //        }
                     //    }
                     //};
-
+                    CreateUser();
                     var main = new MainPage();
                     await Navigation.PushAsync(main, false);
                 }
