@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olive.Android", "Olive\Olive.Android\Olive.Android.csproj", "{44FEF93C-4608-4244-AA9C-7F47919B7ADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Olive", "Olive\Olive\Olive.csproj", "{40A8B0EB-9D00-4524-AD94-F19E8378C432}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Olive", "Olive\Olive\Olive.csproj", "{40A8B0EB-9D00-4524-AD94-F19E8378C432}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

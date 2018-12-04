@@ -4,12 +4,12 @@
              x:Class="Olive.Views.SettingsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Settings Page"
+            <!--<Label Text="Settings Page"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" />-->
 
-            <StackLayout>
-                <Button BackgroundColor="#db2534" TextColor="White" Clicked="LogOutClicked" VerticalOptions="End" Text="Log Out" x:Name="btn_LogOut"/>
+            <StackLayout Padding="10">
+                <Button BackgroundColor="#f02424" TextColor="White" Clicked="LogOutClicked" VerticalOptions="End" Text="Log Out" x:Name="btn_LogOut"/>
             </StackLayout>
         </StackLayout>
         

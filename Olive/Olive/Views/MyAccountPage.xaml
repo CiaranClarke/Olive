@@ -4,9 +4,13 @@
              x:Class="Olive.Views.MyAccountPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="My Account Page"
+            <!--<Label Text="My Account Page"
                 VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+                HorizontalOptions="CenterAndExpand" />-->
+
+            <StackLayout Padding="10">
+                <Button TextColor="White" BackgroundColor="#aeaeae" Clicked="SellItemClicked" Text="Sell an Item" VerticalOptions="Start" x:Name="btn_SellItem"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

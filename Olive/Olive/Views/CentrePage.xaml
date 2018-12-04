@@ -19,7 +19,7 @@
                 
             <swipeCardView:SwipeCardView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="1000" WidthRequest="600">
                         <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
                             <AbsoluteLayout>
                                 <Image Source="{Binding Photo}" Aspect="AspectFill"  AbsoluteLayout.LayoutBounds=".5,0.5,1,1" AbsoluteLayout.LayoutFlags="All"/>
