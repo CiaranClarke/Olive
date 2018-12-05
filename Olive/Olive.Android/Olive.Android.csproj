@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Functions\DbFilePath.cs" />
+    <Compile Include="Functions\FileMgr.cs" />
     <Compile Include="Functions\MediaService.cs" />
     <Compile Include="Functions\SQLiteFunctions.cs" />
     <Compile Include="MainActivity.cs" />
