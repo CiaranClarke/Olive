@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Olive.AppSpecific;
+using Olive.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,5 +27,11 @@ namespace Olive.Views
             await Navigation.PushModalAsync(sellItemPage, false);
         }
 
+        public async void MyItemsClicked(object sender, EventArgs e)
+        {
+            var myItemsPage = new Views.MyItems();
+            //await Navigation.PushAsync(sellItemPage, false);
+            await Navigation.PushModalAsync(myItemsPage, false);
+        }
     }
 }

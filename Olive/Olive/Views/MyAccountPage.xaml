@@ -11,6 +11,9 @@
             <StackLayout Padding="10">
                 <Button TextColor="White" BackgroundColor="#aeaeae" Clicked="SellItemClicked" Text="Sell an Item" VerticalOptions="Start" x:Name="btn_SellItem"/>
             </StackLayout>
+            <StackLayout Padding="10">
+                <Button TextColor="White" BackgroundColor="#aeaeae" Clicked="MyItemsClicked" Text="My Items" VerticalOptions="Start" x:Name="btn_MyItems"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

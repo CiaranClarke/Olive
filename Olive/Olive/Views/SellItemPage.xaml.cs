@@ -1,5 +1,7 @@
-﻿using Olive.Interfaces;
+﻿using Olive.AppSpecific;
+using Olive.Interfaces;
 using Plugin.Media;
+using SQLite.Net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace Olive.Views
     public partial class SellItemPage : ContentPage
     {
         List<string> _images = new List<string>();
+       public static int pNo;
         public SellItemPage()
         {
             //Navigation.RemovePage(new MainPage1());
@@ -134,15 +137,46 @@ namespace Olive.Views
 
                     string imageBase64 = DependencyService.Get<IFileMgr>().GetBase64ImageString(image);
 
+                    //var sqliteFilename = "Olive.db3";
+                    //string dbPath = DependencyService.Get<IDbFilePath>().GetLocalFilePath();
+                    //dbPath = System.IO.Path.Combine(dbPath, sqliteFilename);
+                    //string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),"Olive.db3");
 
+                    using (var db = DependencyService.Get<IConnectionSQLite>().CreateConnection())
+                    {
+                        // Create product table 
+                        db.CreateTable<tblProducts>();
+
+                        // Create your new product instance
+                        var product = new tblProducts
+                        {
+                            prodCategory = "Menswear",
+                            prodSubCategory = "Tops",
+                            prodPrice = 11.24m,
+                            prodDescription = "T Shirt",
+                            prodSize = "M",
+                            prodColour = "Blue",
+                            prodImageString = imageBase64,
+                            prodBrand = "Topman",
+                            prodLocation = "Newry",
+                            prodSold = false,
+                            prodQuantity = 1
+                        };
+
+                        // Insert new product document (Id will be auto-incremented)
+                        db.Insert(product);
+
+                        pNo = product.productNo;
+                    }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
+                await DisplayAlert("Selling", "Your item is up for sale!", "OK");
                 await Navigation.PopModalAsync();
             }
         }

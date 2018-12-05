@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Olive.Views.MyItems">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+            <Image Source="deleteIcon.png" Margin="10">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="closePage" NumberOfTapsRequired="1" CommandParameter="1"/>
+                </Image.GestureRecognizers>
+            </Image>
+            </StackLayout>
+            <StackLayout Margin="10">
+                <Label Text="My Items" TextColor="Black" HorizontalOptions="CenterAndExpand" FontSize="24"/>
+            </StackLayout>
+
+            <StackLayout x:Name="imagesStack" Margin="10" HorizontalOptions="CenterAndExpand">
+
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

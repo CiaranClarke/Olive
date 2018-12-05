@@ -18,7 +18,7 @@ namespace Olive.AppSpecific
         public string prodSubCategory
         { get; set; }
         [NotNull]
-        public float prodPrice
+        public decimal prodPrice
         { get; set; }
         [NotNull, MaxLength(100)]
         public string prodDescription
