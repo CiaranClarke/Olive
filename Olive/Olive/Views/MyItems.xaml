@@ -14,7 +14,6 @@
             <StackLayout Margin="10">
                 <Label Text="My Items" TextColor="Black" HorizontalOptions="CenterAndExpand" FontSize="24"/>
             </StackLayout>
-
             <StackLayout x:Name="imagesStack" Margin="10" HorizontalOptions="CenterAndExpand">
 
             </StackLayout>
