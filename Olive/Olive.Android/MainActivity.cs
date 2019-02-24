@@ -14,6 +14,7 @@ using System.IO;
 using System.Collections.Generic;
 using Plugin.CurrentActivity;
 
+
 namespace Olive.Droid
 {
     [Activity(Label = "Olive", Icon = "@drawable/logoIcon", Theme = "@style/splashscreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -21,6 +22,8 @@ namespace Olive.Droid
     {
         //Image image1;
         //internal static MainActivity Instance { get; private set; }
+        
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //Instance = this;

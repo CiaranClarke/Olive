@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Olive.Views.WishlistPage"
+             xmlns:local1="clr-namespace:Olive.Views.Templates"
+             xmlns:local2="clr-namespace:Olive.ViewModels">
+    
+    <ContentPage.BindingContext>
+        <local2:WishlistViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <!--MAIN CONTAINER-->
+        <Grid>
+            <!---BACKGROUND IMAGE-->
+
+            <ScrollView Padding="10">
+                <StackLayout>
+
+                    <ListView x:Name="Wishlist" IsVisible="True" ItemsSource="{Binding WishlistItems}" SeparatorVisibility="None" SeparatorColor="Transparent" ItemTapped="OnItemTapped" HasUnevenRows="false" Margin="0,5">
+                        <ListView.RowHeight>
+                            <OnIdiom x:TypeArguments="x:Int32" Phone="100" Tablet="120" />
+                        </ListView.RowHeight>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <local1:ListItemTemplate />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
+
+            <StackLayout VerticalOptions="Center">
+                <Label x:Name="NoCasesLabel" Text="Your Wishlist is Empty" IsVisible="False" HorizontalOptions="CenterAndExpand" FontSize="Large" TextColor="White"/>
+            </StackLayout>
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

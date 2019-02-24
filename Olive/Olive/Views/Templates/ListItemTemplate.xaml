@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Olive.Views.Templates.ListItemTemplate">
+    <Grid ColumnSpacing="20" RowSpacing="0" Margin="10,5,10,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- BACKGROUND COLOR -->
+        <BoxView Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" BackgroundColor="{Binding BackgroundColor}" />
+
+        <!-- BACKGROUND CIRCLE -->
+        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" FontSize="14" TextColor="#33000000" VerticalTextAlignment="Center" HorizontalOptions="Center" />
+
+        <!-- ICON -->
+        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Text="{ Binding Icon }" FontSize="14" TextColor="White" VerticalTextAlignment="Center" HorizontalOptions="Center" />
+
+        <!-- CATEGORY -->
+        <Label Grid.Row="0" Grid.Column="1" Text="{ Binding Name }" TextColor="Black" VerticalTextAlignment="End" />
+
+        <!-- CHEVRON -->
+        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" WidthRequest="20" HorizontalOptions="End" TextColor="{ Binding BackgroundColor }" Style="{ DynamicResource CardsListItemTemplateChevronStyle }" />
+
+    </Grid>
+</ContentView>

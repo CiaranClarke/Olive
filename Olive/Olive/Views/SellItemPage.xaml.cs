@@ -4,6 +4,7 @@ using Plugin.Media;
 using SQLite.Net;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -115,7 +116,6 @@ namespace Olive.Views
                     selectImage.Source = ImageSource.FromStream(() =>
                     {
                         var stream = file1.GetStream();
-                        file1.Dispose();
                         return stream;
                     });
                     _images.Add(file1.Path);
@@ -150,17 +150,17 @@ namespace Olive.Views
                         // Create your new product instance
                         var product = new tblProducts
                         {
-                            prodCategory = "Menswear",
-                            prodSubCategory = "Tops",
-                            prodPrice = 11.24m,
-                            prodDescription = "T Shirt",
-                            prodSize = "M",
-                            prodColour = "Blue",
+                            prodCategory = "" ,
+                            prodSubCategory = "",
+                            prodPrice = 11.64m,
+                            prodDescription = txt_Description.ToString(),
+                            prodSize = txt_Size.ToString(),
+                            prodColour = txt_Colour.ToString(),
                             prodImageString = imageBase64,
-                            prodBrand = "Topman",
+                            prodBrand = txt_Brand.ToString(),
                             prodLocation = "Newry",
                             prodSold = false,
-                            prodQuantity = 1
+                            prodQuantity = Convert.ToInt32(txt_Quantity.ToString())
                         };
 
                         // Insert new product document (Id will be auto-incremented)

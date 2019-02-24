@@ -105,7 +105,6 @@ namespace Olive.AppSpecific
 
     public class EmailValidator
     {
-
         public static bool IsValidEmail(string txt_Email)
         {
 
@@ -123,11 +122,8 @@ namespace Olive.AppSpecific
             {
                 return false;
             }
-
         }
-
     }
-
 
     public class PasswordValidationBehavior : Behavior<Entry>
     {
@@ -157,13 +153,11 @@ namespace Olive.AppSpecific
         protected override void OnDetachingFrom(Entry bindable)
         {
             bindable.TextChanged -= HandleTextChanged;
-
         }
     }
 
     public class PasswordValidation
     {
-
         public static bool IsValidPassword(string txt_Password)
         {
             const string passwordRegex = @"^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$";
@@ -179,9 +173,7 @@ namespace Olive.AppSpecific
             {
                 return false;
             }
-
         }
-
     }
 
     public class EntryLengthValidatorBehavior : Behavior<Entry>
@@ -283,7 +275,6 @@ namespace Olive.AppSpecific
 
     public class EmptyFieldValidator : Behavior<Entry>
     {
-        // Creating BindableProperties with Limited write access: http://iosapi.xamarin.com/index.aspx?link=M%3AXamarin.Forms.BindableObject.SetValue(Xamarin.Forms.BindablePropertyKey%2CSystem.Object) 
 
         static readonly BindablePropertyKey IsValidPropertyKey = BindableProperty.CreateReadOnly("IsValid", typeof(bool), typeof(NumberValidatorBehavior), false);
 

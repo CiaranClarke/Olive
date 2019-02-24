@@ -46,6 +46,7 @@
 					Property="HorizontalOptions"
 					Value="FillAndExpand" />
             </Style>
-            </ResourceDictionary>
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

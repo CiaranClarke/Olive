@@ -32,8 +32,8 @@ namespace Olive.Views
 
         public async void OnPasswordRecoveryTapped(object sender, EventArgs e)
         {
-            //var signUpPage = new PasswordRecovery();
-            //await Navigation.PushAsync(signUpPage, false);
+            var forgotPasswordPage = new ForgotPasswordPage();
+            await Navigation.PushAsync(forgotPasswordPage, false);
         }
 
         private async void RegisterClicked(object sender, EventArgs e)
