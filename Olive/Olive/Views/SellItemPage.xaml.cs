@@ -8,7 +8,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Firebase.Database;
+using Firebase.Database.Query;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,7 +19,9 @@ namespace Olive.Views
     public partial class SellItemPage : ContentPage
     {
         List<string> _images = new List<string>();
-       public static int pNo;
+        public static int pNo;
+        FirebaseClient firebase = new FirebaseClient("https://olive-4a870.firebaseio.com/"); //Firebase Database URL  
+        string productKey;
         public SellItemPage()
         {
             //Navigation.RemovePage(new MainPage1());
@@ -127,10 +130,51 @@ namespace Olive.Views
             }
         }
 
+        public async Task CreateProductImages(string productNo, string prodImageString)
+        {
+            var prodImage = await firebase
+              .Child("ProductImages")
+              .PostAsync(new tblProductImages()
+              {
+                  productNo = productNo,
+                  prodImageString = prodImageString
+              });
+            var imageKey = prodImage.Key;
+
+            //Settings.UserKey = token;
+        }
+
+        public async Task CreateProduct(string prodCategory, string prodSubCategory, decimal prodPrice, string prodDescription, string prodSize,
+            string prodColour, string prodBrand, string prodLocation, bool prodSold, string prodSellerNo)
+        {
+            var product = await firebase
+              .Child("Products")
+              .PostAsync(new tblProducts()
+              {
+                  prodCategory = prodCategory,
+                  prodSubCategory = prodSubCategory,
+                  prodPrice = prodPrice,
+                  prodDescription = prodDescription,
+                  prodSize = prodSize,
+                  prodColour = prodColour,
+                  prodBrand = prodBrand,
+                  prodLocation = prodLocation,
+                  prodSold = prodSold,
+                  prodSellerNo = prodSellerNo
+              });
+            productKey = product.Key;
+
+            //Settings.UserKey = token;
+        }
+
         public async void nextBtnClicked(object sender, EventArgs e)
         {
             try
             {
+                await CreateProduct(txt_Category.SelectedItem.ToString(), txt_SubCategory.SelectedItem.ToString(), Convert.ToDecimal(txt_Price.Text), txt_Description.Text,
+                        txt_Size.Text, txt_Colour.Text, txt_Brand.Text, Settings.UserLocation,
+                        false, Settings.UserKey);
+
                 foreach (string image in _images)
                 {
                     //DisplayAlert("Image URL", image.ToString(), "Ok");
@@ -142,32 +186,34 @@ namespace Olive.Views
                     //dbPath = System.IO.Path.Combine(dbPath, sqliteFilename);
                     //string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),"Olive.db3");
 
-                    using (var db = DependencyService.Get<IConnectionSQLite>().CreateConnection())
-                    {
-                        // Create product table 
-                        db.CreateTable<tblProducts>();
+                    //using (var db = DependencyService.Get<IConnectionSQLite>().CreateConnection())
+                    //{
+                    //    // Create product table 
+                    //    db.CreateTable<tblProducts>();
 
-                        // Create your new product instance
-                        var product = new tblProducts
-                        {
-                            prodCategory = "" ,
-                            prodSubCategory = "",
-                            prodPrice = 11.64m,
-                            prodDescription = txt_Description.ToString(),
-                            prodSize = txt_Size.ToString(),
-                            prodColour = txt_Colour.ToString(),
-                            prodImageString = imageBase64,
-                            prodBrand = txt_Brand.ToString(),
-                            prodLocation = "Newry",
-                            prodSold = false,
-                            prodQuantity = Convert.ToInt32(txt_Quantity.ToString())
-                        };
+                    //    // Create your new product instance
+                    //    var product = new tblProducts
+                    //    {
+                    //        prodCategory = "",
+                    //        prodSubCategory = "",
+                    //        prodPrice = 11.64m,
+                    //        prodDescription = txt_Description.ToString(),
+                    //        prodSize = txt_Size.ToString(),
+                    //        prodColour = txt_Colour.ToString(),
+                    //        prodImageString = imageBase64,
+                    //        prodBrand = txt_Brand.ToString(),
+                    //        prodLocation = "Newry",
+                    //        prodSold = false,
+                    //        prodSellerNo = Settings.UserKey;
+                    //    };
 
-                        // Insert new product document (Id will be auto-incremented)
-                        db.Insert(product);
+                    //    // Insert new product document (Id will be auto-incremented)
+                    //    db.Insert(product);
 
-                        pNo = product.productNo;
-                    }
+                    //    pNo = product.productNo;
+                    //}
+
+                    await CreateProductImages(productKey, imageBase64);
                 }
             }
             catch (Exception ex)

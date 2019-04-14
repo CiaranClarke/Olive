@@ -2,13 +2,15 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
-             x:Class="Olive.Views.CentrePage">
+             x:Class="Olive.Views.CentrePage" BackgroundColor="#f9f9f9">
     <ContentPage.Content>
+        
         <StackLayout>
             <swipeCardView:SwipeCardView
                 x:Name="SwipeCardView"
                 ItemsSource="{Binding Profiles}"
                 HorizontalOptions="FillAndExpand" 
+                HeightRequest="700"
                 VerticalOptions="FillAndExpand"
                 Padding="10"
                 SwipedCommand="{Binding SwipedCommand}"
@@ -19,10 +21,10 @@
                 
             <swipeCardView:SwipeCardView.ItemTemplate>
                 <DataTemplate>
-                        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" HeightRequest="1000" WidthRequest="600">
-                        <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <StackLayout HorizontalOptions="FillAndExpand">
+                        <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
                             <AbsoluteLayout>
-                                <Image Source="{Binding Photo}" Aspect="AspectFill"  AbsoluteLayout.LayoutBounds=".5,0.5,1,1" AbsoluteLayout.LayoutFlags="All"/>
+                                <Image Source="{Binding Photo}" Aspect="AspectFill"  AbsoluteLayout.LayoutBounds=".5,0.3,.8,.8" AbsoluteLayout.LayoutFlags="All"/>
                                 <Frame x:Name="LikeFrame"  BorderColor="#63DD99" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.1,.1, 150, 50"
                                          AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="-20" Opacity="0">
                                     <Label x:Name="LikeText" Text="LIKE" TextColor="#63DD99" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>

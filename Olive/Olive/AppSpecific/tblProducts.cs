@@ -8,8 +8,8 @@ namespace Olive.AppSpecific
     [Table("tblProducts")]
     public class tblProducts
     {
-        [PrimaryKey, AutoIncrement]
-        public int productNo
+        [PrimaryKey]
+        public string productNo
         { get; set; }
         [NotNull, MaxLength(20)]
         public string prodCategory
@@ -29,9 +29,6 @@ namespace Olive.AppSpecific
         [MaxLength(20)]
         public string prodColour
         { get; set; }
-        [NotNull]
-        public string prodImageString
-        { get; set; }
         [MaxLength(20)]
         public string prodBrand
         { get; set; }
@@ -40,7 +37,7 @@ namespace Olive.AppSpecific
         { get; set; }
         public bool prodSold
         { get; set; }
-        public int prodQuantity
+        public string prodSellerNo
         { get; set; }
     }
 }

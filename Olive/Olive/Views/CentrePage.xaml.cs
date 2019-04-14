@@ -1,5 +1,4 @@
-﻿
-using MLToolkit.Forms.SwipeCardView;
+﻿using MLToolkit.Forms.SwipeCardView;
 using MLToolkit.Forms.SwipeCardView.Core;
 using Olive.AppSpecific;
 using Olive.ViewModels;
@@ -32,7 +31,7 @@ namespace Olive.Views
             this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Up);
         }
 
-            private void OnLikeClicked(object sender, EventArgs e)
+        private void OnLikeClicked(object sender, EventArgs e)
         {
             this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Right);
         }

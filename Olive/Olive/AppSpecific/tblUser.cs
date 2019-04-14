@@ -9,8 +9,8 @@ namespace Olive.AppSpecific
     [Table("tblUser")]
     public class tblUser
     {
-        [PrimaryKey, AutoIncrement]
-        public int userNo
+        [PrimaryKey]
+        public string userNo
         { get; set; }
         [NotNull, MaxLength(20)]
         public string userFirstName

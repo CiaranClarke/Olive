@@ -14,17 +14,18 @@ namespace Olive.ViewModels
         private ObservableCollection<ProductModel> _profiles = new ObservableCollection<ProductModel>();
 
         private uint _threshold;
+        private float _backCardScale;
 
         public CardViewModel()
         {
             InitializeProfiles();
 
             Threshold = (uint)(App.ScreenWidth / 3);
-
+            
             SwipedLeftCommand = new Command<SwipedCardEventArgs>(OnSwipedLeftCommand);
             SwipedRightCommand = new Command<SwipedCardEventArgs>(OnSwipedRightCommand);
             DraggingCommand = new Command<DraggingCardEventArgs>(OnDraggingCommand);
-
+            _backCardScale = 0.8f;
             ClearItemsCommand = new Command(OnClearItemsCommand);
             AddItemsCommand = new Command(OnAddItemsCommand);
         }
@@ -45,6 +46,16 @@ namespace Olive.ViewModels
             set
             {
                 _threshold = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public float BackCardScale
+        {
+            get => _backCardScale;
+            set
+            {
+                _backCardScale = value;
                 RaisePropertyChanged();
             }
         }
