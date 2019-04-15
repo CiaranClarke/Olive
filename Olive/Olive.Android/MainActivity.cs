@@ -13,7 +13,9 @@ using Xamarin.Forms;
 using System.IO;
 using System.Collections.Generic;
 using Plugin.CurrentActivity;
-
+using Xamd.ImageCarousel.Forms.Plugin.Droid;
+using PayPal.Forms.Abstractions;
+using PayPal.Forms;
 
 namespace Olive.Droid
 {
@@ -39,11 +41,34 @@ namespace Olive.Droid
             App.ScreenWidth = (int)(Resources.DisplayMetrics.WidthPixels / Resources.DisplayMetrics.Density);
 
             CrossCurrentActivity.Current.Init(this, savedInstanceState);
+            ImageCarouselRenderer.Init();
 
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+
+            var config = new PayPalConfiguration(PayPalEnvironment.NoNetwork, "oliveapplication@email.com")
+            {
+                //If you want to accept credit cards
+                AcceptCreditCards = false,
+                //Your business name
+                MerchantName = "Olive",
+                //Your privacy policy Url
+                MerchantPrivacyPolicyUri = "https://www.example.com/privacy",
+                //Your user agreement Url
+                MerchantUserAgreementUri = "https://www.example.com/legal",
+                // OPTIONAL - ShippingAddressOption (Both, None, PayPal, Provided)
+                ShippingAddressOption = ShippingAddressOption.Both,
+                // OPTIONAL - Language: Default languege for PayPal Plug-In
+                Language = "gb",
+                // OPTIONAL - PhoneCountryCode: Default phone country code for PayPal Plug-In
+                PhoneCountryCode = "+44",
+            };
+
+            CrossPayPalManager.Init(config, this);
+
             LoadApplication(new App());
         }
+
 
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
@@ -61,6 +86,8 @@ namespace Olive.Droid
             //image1.Source = imageSource1;
 
             //MessagingCenter.Send((App)Xamarin.Forms.Application.Current, "ImagesSelected", image1);
+
+            PayPalManagerImplementation.Manager.OnActivityResult(requestCode, resultCode, data);
         }
 
         //public void selectImage1Click()
@@ -72,6 +99,12 @@ namespace Olive.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
             Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            PayPalManagerImplementation.Manager.Destroy();
         }
     }
 }

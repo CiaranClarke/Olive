@@ -26,14 +26,23 @@ namespace Olive.Views
             this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Left);
         }
 
-        private void OnSuperLikeClicked(object sender, EventArgs e)
+        private async void OnSuperLikeClicked(object sender, EventArgs e)
         {
-            this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Up);
+            await this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Up);
+
+            //var wishlistPage = new Views.ViewItemPage(profileID_lbl.Text);
+            //await Navigation.PushModalAsync(wishlistPage, false);
         }
 
         private void OnLikeClicked(object sender, EventArgs e)
         {
             this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Right);
+        }
+
+        private async void MoreInfoClicked(object sender, EventArgs e)
+        {
+            //var moreInfoPage = new Views.ViewItemPage(profileID_lbl.Text);
+            //await Navigation.PushModalAsync(moreInfoPage, false);
         }
 
         private void OnDragging(object sender, DraggingCardEventArgs e)
@@ -124,7 +133,7 @@ namespace Olive.Views
             }
         }
 
-        void PurchaseButton_Clicked(object sender, System.EventArgs e)
+        public async void PurchaseButton_Clicked(object sender, System.EventArgs e)
         {
             
         }

@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Olive.Views.ViewItemPage">
+             x:Class="Olive.Views.ViewItemPage" 
+             xmlns:controls="clr-namespace:Xamd.ImageCarousel.Forms.Plugin.Abstractions;assembly=Xamd.ImageCarousel.Forms.Plugin.Abstractions">
     <ContentPage.Content>
         <Grid>
 
@@ -28,11 +29,48 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                    
+                    <StackLayout Grid.Row="0" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                        <Image Source="deleteIcon.png" Margin="10">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="closePage" NumberOfTapsRequired="1" CommandParameter="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
 
-
-                    <StackLayout Grid.Row="0" Grid.Column="0" VerticalOptions="Start">
-                        
+                    <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="lbl_Title" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Start">
+                        <controls:ImageCarousel x:Name="imgSlider" HeightRequest="500" WidthRequest="500" />
+                    </StackLayout>
+                    <StackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
+                        <Label x:Name="lbl_Size" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
+                        <Label x:Name="lbl_Price" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
+                        <Label x:Name="lbl_Category" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
+                        <Label x:Name="lbl_SubCategory" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
+                        <Label x:Name="lbl_Colour" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
+                        <Label x:Name="lbl_Brand" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
+                        <Label x:Name="lbl_Location" Text="" FontSize="20" TextColor="Black"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start" HorizontalOptions="End">
+                        <Button Text="BUY" Clicked="buyitem_clicked"/>
                     </StackLayout>
                 </Grid>
             </ScrollView>

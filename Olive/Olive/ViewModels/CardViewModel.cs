@@ -28,17 +28,18 @@ namespace Olive.ViewModels
         List<tblProducts> productList = new List<tblProducts>();
         List<tblProductImages> imageList = new List<tblProductImages>();
         string prodNoForImages;
+        string prodNo;
 
         public CardViewModel()
         {
             InitializeProfiles();
 
-            Threshold = (uint)(App.ScreenWidth / 3);
-            
+            Threshold = (uint)(App.ScreenWidth / 1.75);
+            _threshold = (uint)(App.ScreenWidth / 1.75);
+
             SwipedLeftCommand = new Command<SwipedCardEventArgs>(OnSwipedLeftCommand);
             SwipedRightCommand = new Command<SwipedCardEventArgs>(OnSwipedRightCommand);
             DraggingCommand = new Command<DraggingCardEventArgs>(OnDraggingCommand);
-            _backCardScale = 0.8f;
             ClearItemsCommand = new Command(OnClearItemsCommand);
             AddItemsCommand = new Command(OnAddItemsCommand);
         }
@@ -89,7 +90,7 @@ namespace Olive.ViewModels
 
         private async void OnSwipedRightCommand(SwipedCardEventArgs eventArgs)
         {
-            await CreateWishlist(Settings.UserKey, "");
+            await CreateWishlist(Settings.UserKey, prodNo);
         }
 
         public async Task CreateWishlist(string userNo, string productNo)
@@ -231,6 +232,7 @@ namespace Olive.ViewModels
                     im.Source = imgSrc;
 
                     this.Profiles.Add(new ProductModel { ProfileId = e.productNo, Name = e.prodDescription, Size = e.prodSize, Photo = im.Source });
+                    prodNo = e.productNo;
                 }
             }
             catch (Exception ex)

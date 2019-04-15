@@ -17,7 +17,7 @@
             <ScrollView Padding="10">
                 <StackLayout>
 
-                    <ListView x:Name="Wishlist" IsVisible="True" ItemsSource="{Binding WishlistItems}" SeparatorVisibility="None" SeparatorColor="Transparent" ItemTapped="OnItemTapped" HasUnevenRows="false" Margin="0,5">
+                    <ListView x:Name="Wishlist" IsVisible="True" SeparatorVisibility="None" SeparatorColor="Transparent" ItemTapped="OnItemTapped" HasUnevenRows="false" Margin="0,5">
                         <ListView.RowHeight>
                             <OnIdiom x:TypeArguments="x:Int32" Phone="100" Tablet="120" />
                         </ListView.RowHeight>

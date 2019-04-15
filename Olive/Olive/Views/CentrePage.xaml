@@ -4,7 +4,7 @@
              xmlns:swipeCardView="clr-namespace:MLToolkit.Forms.SwipeCardView;assembly=MLToolkit.Forms.SwipeCardView"
              x:Class="Olive.Views.CentrePage" BackgroundColor="#f9f9f9">
     <ContentPage.Content>
-        
+
         <StackLayout>
             <swipeCardView:SwipeCardView
                 x:Name="SwipeCardView"
@@ -18,40 +18,45 @@
                 Threshold="{Binding Threshold}"
                 SupportedSwipeDirections="Left, Right, Up"
                 SupportedDraggingDirections="Left, Right, Up, Down">
-                
-            <swipeCardView:SwipeCardView.ItemTemplate>
-                <DataTemplate>
+                <!--<Label x:Name="profileID_lbl" IsVisible="False" Text="{Binding ProfileId}"/>-->
+
+                <swipeCardView:SwipeCardView.ItemTemplate>
+                    <DataTemplate>
                         <StackLayout HorizontalOptions="FillAndExpand">
-                        <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
-                            <AbsoluteLayout>
-                                <Image Source="{Binding Photo}" Aspect="AspectFill"  AbsoluteLayout.LayoutBounds=".5,0.3,.8,.8" AbsoluteLayout.LayoutFlags="All"/>
-                                <Frame x:Name="LikeFrame"  BorderColor="#63DD99" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.1,.1, 150, 50"
+                            <Frame CornerRadius="10" Padding="0" HorizontalOptions="FillAndExpand">
+                                <AbsoluteLayout>
+                                    <Image Source="{Binding Photo}" Aspect="AspectFill"  AbsoluteLayout.LayoutBounds=".5,0.5,1,1" AbsoluteLayout.LayoutFlags="All"/>
+                                    <Frame x:Name="LikeFrame"  BorderColor="#63DD99" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.1,.1, 150, 50"
                                          AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="-20" Opacity="0">
-                                    <Label x:Name="LikeText" Text="LIKE" TextColor="#63DD99" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
-                                </Frame>
-                                <Frame x:Name="NopeFrame" BorderColor="#FF6A4F" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.9,.1, 150, 50"
+                                        <Label x:Name="LikeText" Text="LIKE" TextColor="#63DD99" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                    </Frame>
+                                    <Frame x:Name="NopeFrame" BorderColor="#FF6A4F" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.9,.1, 150, 50"
                                        AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="20" Opacity="0">
-                                    <Label Text="NOPE" TextColor="#FF6A4F" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
-                                </Frame>
-                                <Frame x:Name="SuperLikeFrame" BorderColor="#2196F3" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.5,.7, 150, 100"
+                                        <Label Text="NOPE" TextColor="#FF6A4F" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                    </Frame>
+                                    <Frame x:Name="SuperLikeFrame" BorderColor="#2196F3" BackgroundColor="Transparent" Padding="0" CornerRadius="20" AbsoluteLayout.LayoutBounds="0.5,.7, 150, 100"
                                         AbsoluteLayout.LayoutFlags="PositionProportional"  Rotation="-20" Opacity="0">
-                                    <Label Text="BUY" TextColor="#2196F3" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
-                                </Frame>
-                                <Label FontSize="Large" BackgroundColor="Black" FontAttributes="Bold" TextColor="White" AbsoluteLayout.LayoutBounds="0.1,0.95, 150, 30" AbsoluteLayout.LayoutFlags="PositionProportional" >
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="{Binding Name}"></Span>
-                                            <Span Text=", "></Span>
-                                            <Span Text="{Binding Size}"></Span>
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                            </AbsoluteLayout>
-                        </Frame>
-                    </StackLayout>
-                </DataTemplate>
-            </swipeCardView:SwipeCardView.ItemTemplate>
-        </swipeCardView:SwipeCardView>
+                                        <Label Text="BUY" TextColor="#2196F3" BackgroundColor="Transparent" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" VerticalOptions="CenterAndExpand" FontSize="32"></Label>
+                                    </Frame>
+                                    <Label FontSize="Large" BackgroundColor="LightGray" FontAttributes="None" TextColor="White" AbsoluteLayout.LayoutBounds="0.1,0.95, 150, 30" AbsoluteLayout.LayoutFlags="PositionProportional" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding Name}"></Span>
+                                                <Span Text=", "></Span>
+                                                <Span Text="{Binding Size}"></Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label x:Name="profileID_lbl" IsVisible="True" Text="{Binding ProfileId}"/>
+                                </AbsoluteLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="MoreInfoClicked" NumberOfTapsRequired="1"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </swipeCardView:SwipeCardView.ItemTemplate>
+            </swipeCardView:SwipeCardView>
         <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 10, 10, 20" Spacing="30">
                 <StackLayout>
                     <Button x:Name="nopeButton" Image="deleteIcon.png" Clicked="OnDislikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
@@ -63,6 +68,7 @@
                     <Button x:Name="likeButton" Image="starIcon.png" Clicked="OnLikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
                 </StackLayout>
             </StackLayout>
+            
         </StackLayout>
         
     </ContentPage.Content>
