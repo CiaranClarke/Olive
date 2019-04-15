@@ -6,12 +6,12 @@ namespace Olive.ViewModels
 {
     public class ProductModel
     {
-        public int ProfileId { get; set; }
+        public string ProfileId { get; set; }
 
         public string Name { get; set; }
 
         public string Size { get; set; }
 
-        public string Photo { get; set; }
+        public Xamarin.Forms.ImageSource Photo { get; set; }
     }
 }

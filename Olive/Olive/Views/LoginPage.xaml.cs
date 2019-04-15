@@ -19,6 +19,7 @@ namespace Olive.Views
 	{
         FirebaseClient firebase; //Firebase Database URL  
         FirebaseAuth auth;
+        FirebaseAuthLink token = null;
         public LoginPage ()
 		{
             NavigationPage.SetHasNavigationBar(this, false);
@@ -84,22 +85,28 @@ namespace Olive.Views
         private async Task<bool> AuthEmail(string email, string password)
         {
             var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyCpxDUBeaHiEKaNUEyBPgJxjRDAlGtxW1U"));
-            /*var data = */await authProvider.SignInWithEmailAndPasswordAsync(email, password);
-
+            token = await authProvider.SignInWithEmailAndPasswordAsync(email, password);
+            
             var db = new FirebaseClient(
               "https://olive-4a870.firebaseio.com/",
               new FirebaseOptions
               {
-                  AuthTokenAsyncFactory = () => Task.FromResult(auth.FirebaseToken)
+                  AuthTokenAsyncFactory = () => Task.FromResult(token.FirebaseToken)
               });
 
-            //var dbData = await db
-            //        .Child("Users")
-            //        .Child(data.User.LocalId)
-            //        .OnceAsync<tblUser>();
 
-            //var some = dbData.Where(a => a.Object.userEmail == email).FirstOrDefault();
-            //Settings.UserKey = some.Key;
+
+            var dbData = (await db
+                    .Child("Users")
+                    //.Child(data.User.LocalId)
+                    .OnceAsync<tblUser>()).Select(item => new tblUser
+                    {
+                        userNo = item.Key,
+                        userEmail = item.Object.userEmail
+                    }).ToList();
+
+            var some = dbData.Where(a => a.userEmail == email).FirstOrDefault();
+            Settings.UserKey = some.userNo;
             //Settings.UserLocation = userCity;
 
             return true;
@@ -119,8 +126,12 @@ namespace Olive.Views
                      // this is one option.
                     if (await AuthEmail(txt_Email.Text, txt_Password.Text) == true)
                     {
+                        Settings.authToken = token.FirebaseToken;
+
                         //var test = GetUser(txt_Email.Text);
                         //Settings.UserKey = test.Result.userNo;
+                        Settings.email = txt_Email.Text;
+                        Settings.password = txt_Password.Text;
 
                         var main = new MainPage1();
                         await Navigation.PushAsync(main, false);

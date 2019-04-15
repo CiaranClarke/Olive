@@ -150,7 +150,8 @@ namespace Olive.Views
                     if (await AuthSignUpEmail(txt_Email.Text, txt_Password.Text) == true)
                     {
                         await CreateUser(txt_FirstName.Text, txt_LastName.Text, txt_Email.Text, txt_Password.Text, txt_Telephone.Text, txt_Address1.Text, txt_Address2.Text, txt_Town.Text, txt_County.Text, txt_PostCode.Text, DateTime.Today);
-                        
+                        Settings.email = txt_Email.Text;
+                        Settings.password = txt_Password.Text;
                         var main = new MainPage1();
                         await Navigation.PushAsync(main, false);
                     }

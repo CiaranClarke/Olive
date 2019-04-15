@@ -14,6 +14,9 @@
             <StackLayout Padding="10">
                 <Button TextColor="White" BackgroundColor="#aeaeae" Clicked="MyItemsClicked" Text="My Items" VerticalOptions="Start" x:Name="btn_MyItems"/>
             </StackLayout>
+            <StackLayout Padding="10">
+                <Button TextColor="White" BackgroundColor="#aeaeae" Clicked="WishlistClicked" Text="Wishlist" VerticalOptions="Start" x:Name="btn_Wishlist"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

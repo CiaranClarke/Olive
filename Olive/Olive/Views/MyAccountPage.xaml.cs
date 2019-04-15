@@ -33,5 +33,11 @@ namespace Olive.Views
             //await Navigation.PushAsync(sellItemPage, false);
             await Navigation.PushModalAsync(myItemsPage, false);
         }
+
+        public async void WishlistClicked(object sender, EventArgs e)
+        {
+            var wishlistPage = new Views.WishlistPage();
+            await Navigation.PushModalAsync(wishlistPage, false);
+        }
     }
 }

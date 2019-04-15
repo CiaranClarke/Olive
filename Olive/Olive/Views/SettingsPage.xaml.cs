@@ -23,7 +23,11 @@ namespace Olive.Views
             var answer = await DisplayAlert("Log Out", "Are you sure you wish to log out?", "Yes", "No");
             if (answer)
             {
-                Settings.UserKey = null;
+                Settings.UserKey = string.Empty;
+                Settings.email = string.Empty;
+                Settings.password = string.Empty;
+                Settings.authToken = string.Empty;
+                Settings.UserLocation = string.Empty;
 
                 await App.Current.MainPage.Navigation.PopToRootAsync();
             }
