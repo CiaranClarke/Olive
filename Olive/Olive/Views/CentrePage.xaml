@@ -13,12 +13,12 @@
                 HeightRequest="700"
                 VerticalOptions="FillAndExpand"
                 Padding="10"
+                TopItem="{Binding TopItem}"
                 SwipedCommand="{Binding SwipedCommand}"
                 DraggingCommand="{Binding DraggingCommand}"
                 Threshold="{Binding Threshold}"
                 SupportedSwipeDirections="Left, Right, Up"
                 SupportedDraggingDirections="Left, Right, Up, Down">
-                <!--<Label x:Name="profileID_lbl" IsVisible="False" Text="{Binding ProfileId}"/>-->
 
                 <swipeCardView:SwipeCardView.ItemTemplate>
                     <DataTemplate>
@@ -47,11 +47,7 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <Label x:Name="profileID_lbl" IsVisible="True" Text="{Binding ProfileId}"/>
                                 </AbsoluteLayout>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Tapped="MoreInfoClicked" NumberOfTapsRequired="1"/>
-                                </Frame.GestureRecognizers>
                             </Frame>
                         </StackLayout>
                     </DataTemplate>
@@ -66,6 +62,10 @@
                 </StackLayout>
                 <StackLayout>
                     <Button x:Name="likeButton" Image="starIcon.png" Clicked="OnLikeClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
+                </StackLayout>
+
+                <StackLayout>
+                    <Button x:Name="moreInfoButton" Image="infoImage.png" Clicked="MoreInfoClicked" WidthRequest="60" HeightRequest="60" CornerRadius="60" BackgroundColor="White" Scale="1"></Button>
                 </StackLayout>
             </StackLayout>
             

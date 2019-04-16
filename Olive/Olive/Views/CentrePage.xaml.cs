@@ -1,8 +1,13 @@
-﻿using MLToolkit.Forms.SwipeCardView;
+﻿using Firebase.Database;
+using Firebase.Database.Query;
+using MLToolkit.Forms.SwipeCardView;
 using MLToolkit.Forms.SwipeCardView.Core;
+using Newtonsoft.Json;
 using Olive.AppSpecific;
 using Olive.ViewModels;
 using System;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,16 +16,29 @@ namespace Olive.Views
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CentrePage : ContentPage
 	{
-		public CentrePage ()
+        FirebaseClient firebase = new FirebaseClient("https://olive-4a870.firebaseio.com/"); //Firebase Database URL  
+        string name;
+
+        public CentrePage ()
 		{
             NavigationPage.SetHasNavigationBar(this, false);
 
             InitializeComponent ();
             this.BindingContext = new CardViewModel();
-
+            
             SwipeCardView.Dragging += OnDragging;
+
+            
         }
 
+        public async void OnSwipedRightCommand()
+        {
+            System.Reflection.PropertyInfo pi = SwipeCardView.TopItem.GetType().GetProperty("ProfileId");
+            string name = (string)(pi.GetValue(SwipeCardView.TopItem, null));
+
+            await CreateWishlist(Settings.UserKey, name);
+
+        }
         private void OnDislikeClicked(object sender, EventArgs e)
         {
             this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Left);
@@ -29,23 +47,47 @@ namespace Olive.Views
         private async void OnSuperLikeClicked(object sender, EventArgs e)
         {
             await this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Up);
-
+            
             //var wishlistPage = new Views.ViewItemPage(profileID_lbl.Text);
             //await Navigation.PushModalAsync(wishlistPage, false);
         }
 
-        private void OnLikeClicked(object sender, EventArgs e)
+        private async void OnLikeClicked(object sender, EventArgs e)
         {
-            this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Right);
+            await this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Right);
+
+            System.Reflection.PropertyInfo pi = SwipeCardView.TopItem.GetType().GetProperty("ProfileId");
+            string name = (string)(pi.GetValue(SwipeCardView.TopItem, null));
+
+            await CreateWishlist(Settings.UserKey, name);
         }
 
         private async void MoreInfoClicked(object sender, EventArgs e)
         {
-            //var moreInfoPage = new Views.ViewItemPage(profileID_lbl.Text);
-            //await Navigation.PushModalAsync(moreInfoPage, false);
+            //var json = JsonConvert.SerializeObject(SwipeCardView.TopItem);
+            //var prodObject = JsonConvert.DeserializeObject<ProductModel>(json);
+            System.Reflection.PropertyInfo pi = SwipeCardView.TopItem.GetType().GetProperty("ProfileId");
+            name = (string)(pi.GetValue(SwipeCardView.TopItem, null));
+
+            var viewItemPage = new Views.ViewItemPage(name);
+            await Navigation.PushModalAsync(viewItemPage, false);
         }
 
-        private void OnDragging(object sender, DraggingCardEventArgs e)
+        public async Task CreateWishlist(string userNo, string productNo)
+        {
+            var wish = await firebase
+              .Child("Wishlist")
+              .PostAsync(new tblWishlist()
+              {
+                  userNo = userNo,
+                  productNo = productNo
+              });
+            var imageKey = wish.Key;
+
+            //Settings.UserKey = token;
+        }
+
+        private async void OnDragging(object sender, DraggingCardEventArgs e)
         {
             var view = (Xamarin.Forms.View)sender;
             var nopeFrame = view.FindByName<Frame>("NopeFrame");
@@ -131,9 +173,14 @@ namespace Olive.Views
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            if (e.Position == DraggingCardPosition.FinishedOverThreshold && e.Direction == SwipeCardDirection.Right)
+            {
+                OnSwipedRightCommand();
+            }
         }
 
-        public async void PurchaseButton_Clicked(object sender, System.EventArgs e)
+        public void PurchaseButton_Clicked(object sender, System.EventArgs e)
         {
             
         }

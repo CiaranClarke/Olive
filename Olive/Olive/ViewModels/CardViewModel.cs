@@ -14,6 +14,7 @@ using Firebase.Auth;
 using System.Linq;
 using Newtonsoft.Json;
 using System.IO;
+using Olive.Views;
 
 namespace Olive.ViewModels
 {
@@ -24,18 +25,17 @@ namespace Olive.ViewModels
         private uint _threshold;
         private float _backCardScale;
         FirebaseClient firebase = new FirebaseClient("https://olive-4a870.firebaseio.com/"); //Firebase Database URL  
-        FirebaseAuth auth;
         List<tblProducts> productList = new List<tblProducts>();
         List<tblProductImages> imageList = new List<tblProductImages>();
-        string prodNoForImages;
-        string prodNo;
+        private string _topItem;
+
 
         public CardViewModel()
         {
             InitializeProfiles();
 
-            Threshold = (uint)(App.ScreenWidth / 1.75);
-            _threshold = (uint)(App.ScreenWidth / 1.75);
+            Threshold = (uint)(App.ScreenWidth / 4);
+            _threshold = (uint)(App.ScreenWidth / 4);
 
             SwipedLeftCommand = new Command<SwipedCardEventArgs>(OnSwipedLeftCommand);
             SwipedRightCommand = new Command<SwipedCardEventArgs>(OnSwipedRightCommand);
@@ -50,6 +50,16 @@ namespace Olive.ViewModels
             set
             {
                 _profiles = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string TopItem
+        {
+            get => _topItem;
+            set
+            {
+                _topItem = value;
                 RaisePropertyChanged();
             }
         }
@@ -88,9 +98,10 @@ namespace Olive.ViewModels
         {
         }
 
-        private async void OnSwipedRightCommand(SwipedCardEventArgs eventArgs)
+        private void OnSwipedRightCommand(SwipedCardEventArgs eventArgs)
         {
-            await CreateWishlist(Settings.UserKey, prodNo);
+            //CentrePage c = new CentrePage();
+            //c.OnSwipedRightCommand();
         }
 
         public async Task CreateWishlist(string userNo, string productNo)
@@ -135,11 +146,8 @@ namespace Olive.ViewModels
         {
         }
 
-        public async Task<List<tblProducts>> CreateProducts(string email, string password)
+        public async Task<List<tblProducts>> CreateProducts()
         {
-            //var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyCpxDUBeaHiEKaNUEyBPgJxjRDAlGtxW1U"));
-            //var data = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
-
             var db = new FirebaseClient(
               "https://olive-4a870.firebaseio.com/",
               new FirebaseOptions
@@ -168,10 +176,8 @@ namespace Olive.ViewModels
             return productList;
         }
 
-        public async Task<List<tblProductImages>> CreateProductImages(string email, string password)
+        public async Task<List<tblProductImages>> CreateProductImages()
         {
-            //var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyCpxDUBeaHiEKaNUEyBPgJxjRDAlGtxW1U"));
-            //var data = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
 
             var db = new FirebaseClient(
              "https://olive-4a870.firebaseio.com/",
@@ -202,15 +208,10 @@ namespace Olive.ViewModels
 
         private async void InitializeProfiles()
         {
-            //this.Profiles.Add(new ProductModel { ProfileId = 1, Name = "Dark T Shirt", Size = "Medium", Photo = "tshirt1.jpg" });
-            //this.Profiles.Add(new ProductModel { ProfileId = 2, Name = "Just Do It T Shirt", Size = "Small", Photo = "tshirt2.jpg" });
-            //this.Profiles.Add(new ProductModel { ProfileId = 3, Name = "Yellow T Shirt", Size = "Large", Photo = "tshirt3.jpg" });
-            //this.Profiles.Add(new ProductModel { ProfileId = 4, Name = "Kahoot T Shirt ", Size = "Small", Photo = "tshirt4.png" });
-            //this.Profiles.Add(new ProductModel { ProfileId = 5, Name = "Abby ", Age = 25, Photo = "p589739.jpg" });7
             try 
-{ 
-                await CreateProducts(Settings.email, Settings.password);
-                await CreateProductImages(Settings.email, Settings.password);
+            { 
+                await CreateProducts();
+                await CreateProductImages();
 
                 var result = from f in productList
                              join s in imageList on f.productNo equals s.productNo into g
@@ -232,12 +233,11 @@ namespace Olive.ViewModels
                     im.Source = imgSrc;
 
                     this.Profiles.Add(new ProductModel { ProfileId = e.productNo, Name = e.prodDescription, Size = e.prodSize, Photo = im.Source });
-                    prodNo = e.productNo;
+                    //prodNo = e.productNo;
                 }
             }
             catch (Exception ex)
             {
-                //await DisplayAlert("Error", "An error has occured", "OK");
                 throw ex;
             }
         }
