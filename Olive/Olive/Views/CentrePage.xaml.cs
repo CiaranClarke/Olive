@@ -39,6 +39,17 @@ namespace Olive.Views
             await CreateWishlist(Settings.UserKey, name);
 
         }
+
+        public async void OnSwipedUpCommand()
+        {
+            System.Reflection.PropertyInfo pi = SwipeCardView.TopItem.GetType().GetProperty("ProfileId");
+            string name = (string)(pi.GetValue(SwipeCardView.TopItem, null));
+
+            var orderPage = new OrderPage(name);
+            await Navigation.PushModalAsync(orderPage, false);
+
+        }
+
         private void OnDislikeClicked(object sender, EventArgs e)
         {
             this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Left);
@@ -47,7 +58,13 @@ namespace Olive.Views
         private async void OnSuperLikeClicked(object sender, EventArgs e)
         {
             await this.SwipeCardView.InvokeSwipe(SwipeCardDirection.Up);
-            
+
+            System.Reflection.PropertyInfo pi = SwipeCardView.TopItem.GetType().GetProperty("ProfileId");
+            string name = (string)(pi.GetValue(SwipeCardView.TopItem, null));
+
+            var orderPage = new OrderPage(name);
+            await Navigation.PushModalAsync(orderPage, false);
+
             //var wishlistPage = new Views.ViewItemPage(profileID_lbl.Text);
             //await Navigation.PushModalAsync(wishlistPage, false);
         }
@@ -177,6 +194,11 @@ namespace Olive.Views
             if (e.Position == DraggingCardPosition.FinishedOverThreshold && e.Direction == SwipeCardDirection.Right)
             {
                 OnSwipedRightCommand();
+            }
+
+            if (e.Position == DraggingCardPosition.FinishedOverThreshold && e.Direction == SwipeCardDirection.Up)
+            {
+                OnSwipedUpCommand();
             }
         }
 

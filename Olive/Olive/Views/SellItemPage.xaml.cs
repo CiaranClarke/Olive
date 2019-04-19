@@ -24,7 +24,6 @@ namespace Olive.Views
         string productKey;
         public SellItemPage()
         {
-            //Navigation.RemovePage(new MainPage1());
             InitializeComponent();
             
         }
@@ -36,11 +35,6 @@ namespace Olive.Views
 
         public async void selectImage(object sender, EventArgs e)
         {
-            //DependencyService.Get<IMediaService>().getImage();
-            //MessagingCenter.Subscribe<App, Image>((App)Xamarin.Forms.Application.Current, "ImagesSelected", (s, images) =>
-            //{
-            //    selectImage1 = images;
-            //});
             try
             {
                 int imageNumber = Convert.ToInt32(((Image)sender).ClassId);
@@ -169,61 +163,36 @@ namespace Olive.Views
 
         public async void nextBtnClicked(object sender, EventArgs e)
         {
-            try
+            if (!String.IsNullOrEmpty(txt_Description.Text) & !String.IsNullOrEmpty(txt_Price.Text))
             {
-                await CreateProduct(txt_Category.SelectedItem.ToString(), txt_SubCategory.SelectedItem.ToString(), Convert.ToDecimal(txt_Price.Text), txt_Description.Text,
-                        txt_Size.Text, txt_Colour.Text, txt_Brand.Text, Settings.UserLocation,
-                        false, Settings.UserKey);
 
-                foreach (string image in _images)
+                try
                 {
-                    //DisplayAlert("Image URL", image.ToString(), "Ok");
+                    await CreateProduct(txt_Category.SelectedItem.ToString(), txt_SubCategory.SelectedItem.ToString(), Convert.ToDecimal(txt_Price.Text), txt_Description.Text,
+                            txt_Size.Text, txt_Colour.Text, txt_Brand.Text, Settings.UserLocation,
+                            false, Settings.UserKey);
 
-                    string imageBase64 = DependencyService.Get<IFileMgr>().GetBase64ImageString(image);
+                    foreach (string image in _images)
+                    {
 
-                    //var sqliteFilename = "Olive.db3";
-                    //string dbPath = DependencyService.Get<IDbFilePath>().GetLocalFilePath();
-                    //dbPath = System.IO.Path.Combine(dbPath, sqliteFilename);
-                    //string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),"Olive.db3");
+                        string imageBase64 = DependencyService.Get<IFileMgr>().GetBase64ImageString(image);
 
-                    //using (var db = DependencyService.Get<IConnectionSQLite>().CreateConnection())
-                    //{
-                    //    // Create product table 
-                    //    db.CreateTable<tblProducts>();
-
-                    //    // Create your new product instance
-                    //    var product = new tblProducts
-                    //    {
-                    //        prodCategory = "",
-                    //        prodSubCategory = "",
-                    //        prodPrice = 11.64m,
-                    //        prodDescription = txt_Description.ToString(),
-                    //        prodSize = txt_Size.ToString(),
-                    //        prodColour = txt_Colour.ToString(),
-                    //        prodImageString = imageBase64,
-                    //        prodBrand = txt_Brand.ToString(),
-                    //        prodLocation = "Newry",
-                    //        prodSold = false,
-                    //        prodSellerNo = Settings.UserKey;
-                    //    };
-
-                    //    // Insert new product document (Id will be auto-incremented)
-                    //    db.Insert(product);
-
-                    //    pNo = product.productNo;
-                    //}
-
-                    await CreateProductImages(productKey, imageBase64);
+                        await CreateProductImages(productKey, imageBase64);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", ex.Message, "OK");
+                }
+                finally
+                {
+                    await DisplayAlert("Selling", "Your item is up for sale!", "OK");
+                    await Navigation.PopModalAsync();
                 }
             }
-            catch (Exception ex)
+            else
             {
-                await DisplayAlert("Error", ex.Message, "OK");
-            }
-            finally
-            {
-                await DisplayAlert("Selling", "Your item is up for sale!", "OK");
-                await Navigation.PopModalAsync();
+                await DisplayAlert("Selling Error", "Please ensure all required fields are completed and try again", "OK");
             }
         }
     }

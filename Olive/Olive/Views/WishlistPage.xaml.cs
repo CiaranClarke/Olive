@@ -59,24 +59,10 @@ namespace Olive.Views
             //await Navigation.PushAsync(new ViewItemPage(content.Id));
         }
 
-        //public void PopulateList()
-        //{
-        //    if (WishlistViewModel.CreateWishlist() != null)
-        //    {
-        //        Wishlist.IsVisible = true;
-        //        NoCasesLabel.IsVisible = false;
-
-        //        //for (var i = 0; i < incidentsList.Count; i++)
-        //        //{
-
-        //        //}
-        //    }
-        //    else
-        //    {
-        //        Wishlist.IsVisible = false;
-        //        NoCasesLabel.IsVisible = true;
-        //    }
-        //}
+        public void closePage(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
+        }
 
         public async Task<List<tblWishlist>> CreateWishlist(string email, string password)
         {
@@ -190,31 +176,6 @@ namespace Olive.Views
 
             try
             {
-                //string str_JSONincident =  AppServiceLiveToPhone.GetLiveDBIncidents(Convert.ToInt32(Settings.LiveIpCoID)).Result;
-                //string str_JSONincident = AppServiceLiveToPhone.getLiveDBIncidentsSync(Convert.ToInt32(Settings.LiveIpCoID)).Result;
-
-                //if (str_JSONincident != "0")
-                //{
-                //    foreach (LiveIncidents item in JsonConvert.DeserializeObject<List<LiveIncidents>>(str_JSONincident))
-                //    {
-                //        result.Add(
-                //           new MyCases
-                //           {
-                //               Id = item.IpInID,
-                //               Name = "Case No. " + item.IpInID.ToString(),
-                //               BackgroundColor = Color.FromHex("#00162E"),
-                //               BackgroundImage = "",
-                //               Icon = GrialShapesFont.Event,
-                //               Badge = 2,
-                //               CaseInfo = item.IpInDateAdded.ToString()
-                //           });
-                //    }
-                //hasWishlist = true;
-                //}
-                //else
-                //{
-                //    hasWishlist = false;
-                //}
                 await CreateWishlist(Settings.email, Settings.password);
                 if(hasWishlist == true)
                 {
@@ -266,10 +227,14 @@ namespace Olive.Views
                             prodSellerNo = e.prodSellerNo
                         };
 
-                        data.Add(prodItem.prodDescription);
+                        Label ep = new Label();
+                        ep.FontSize = 20;
+                        ep.HorizontalOptions = LayoutOptions.StartAndExpand;
+                        ep.Text = prodItem.prodDescription.ToString();
+                        Wishlist.Children.Add(ep);
                     }
 
-                    Wishlist.ItemsSource = data;
+                    //Wishlist.ItemsSource = data;
                 }
                 else
                 {

@@ -10,34 +10,47 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <!--MAIN CONTAINER-->
         <Grid>
-            <!---BACKGROUND IMAGE-->
-
             <ScrollView Padding="10">
-                <StackLayout>
+                <Grid Padding="10" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                    <ListView x:Name="Wishlist" IsVisible="True" SeparatorVisibility="None" SeparatorColor="Transparent" ItemTapped="OnItemTapped" HasUnevenRows="false" Margin="0,5">
-                        <ListView.RowHeight>
-                            <OnIdiom x:TypeArguments="x:Int32" Phone="100" Tablet="120" />
-                        </ListView.RowHeight>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                        <Image Source="deleteIcon.png" Margin="10">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="closePage" NumberOfTapsRequired="1" CommandParameter="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout Margin="10" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Start">
+                        <Label Text="Wishlist" TextColor="Black" HorizontalOptions="CenterAndExpand" FontSize="24"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="2" x:Name="Wishlist" Margin="10" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
 
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <local1:ListItemTemplate />
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                    </StackLayout>
 
-                    </ListView>
-                </StackLayout>
+                    <StackLayout VerticalOptions="Center" Grid.Row="5">
+                        <Label x:Name="NoCasesLabel" Text="Your Wishlist is Empty" IsVisible="False" HorizontalOptions="CenterAndExpand" FontSize="Large" TextColor="White"/>
+                    </StackLayout>
+
+                </Grid>
             </ScrollView>
-
-            <StackLayout VerticalOptions="Center">
-                <Label x:Name="NoCasesLabel" Text="Your Wishlist is Empty" IsVisible="False" HorizontalOptions="CenterAndExpand" FontSize="Large" TextColor="White"/>
-            </StackLayout>
-
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -106,21 +106,6 @@ namespace Olive.Views
 
         public async void myItems()
         {
-            //using (var db = DependencyService.Get<IConnectionSQLite>().CreateConnection())
-            //{
-            //    var product = db.Get<tblProducts>(pNo);
-
-
-
-            //byte[] imageByte = Convert.FromBase64String(product.prodImageString);
-            //ImageSource imgSrc = ImageSource.FromStream(() => new MemoryStream(imageByte));
-            //Image im = new Image();
-            //im.HeightRequest = 250;
-            //im.WidthRequest = 250;
-            //im.Source = imgSrc;
-
-            //imagesStack.Children.Add(im);
-            //}
             try
             {
                 await CreateItems(Settings.email, Settings.password);
@@ -168,13 +153,15 @@ namespace Olive.Views
                     };
 
                     Label ep = new Label();
+                    ep.FontSize = 20;
+                    ep.HorizontalOptions = LayoutOptions.StartAndExpand;
                     ep.Text = prodItem.prodDescription.ToString();
                     itemsStack.Children.Add(ep);
                 }     
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await DisplayAlert("Error", "An error has occured", "OK");
+                await DisplayAlert("Error", "An error has occured, please try again later", "OK");
             }
 
         }

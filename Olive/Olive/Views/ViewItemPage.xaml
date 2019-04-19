@@ -45,8 +45,9 @@
                     <StackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" VerticalOptions="Start">
                         <Label x:Name="lbl_Title" Text="" FontSize="20" TextColor="Black"/>
                     </StackLayout>
-                    <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Start">
-                        <controls:ImageCarousel x:Name="imgSlider" HeightRequest="500" WidthRequest="500" />
+                    <StackLayout x:Name="imagestack" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" HorizontalOptions="Center" VerticalOptions="Start">
+                        <!--<controls:ImageCarousel x:Name="imgSlider" HeightRequest="500" WidthRequest="500" />-->
+                        <!--<Image x:Name="imageSlide" HeightRequest="500" WidthRequest="500"/>-->
                     </StackLayout>
                     <StackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="1" VerticalOptions="Start">
                         <Label x:Name="lbl_Size" Text="" FontSize="20" TextColor="Black"/>

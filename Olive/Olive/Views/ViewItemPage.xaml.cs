@@ -114,15 +114,22 @@ namespace Olive.Views
                     im.WidthRequest = 400;
                     im.Source = imgSrc;
 
+                    //imageSlide = im;
                     //imageSources.Add(im);
+                    imagestack.Children.Add(im);
                 }
 
                 lbl_Title.Text = productDetails.prodDescription;
                 lbl_Price.Text = productDetails.prodPrice.ToString();
                 lbl_Size.Text = productDetails.prodSize;
+                lbl_Category.Text = productDetails.prodCategory;
+                lbl_SubCategory.Text = productDetails.prodSubCategory;
+                lbl_Brand.Text = productDetails.prodBrand;
+                lbl_Colour.Text = productDetails.prodColour;
+                lbl_Location.Text = productDetails.prodLocation;
 
 
-                imgSlider.Images = imageSources;
+                //imgSlider.Images = imageSources;
             }
             catch(Exception)
             {
@@ -130,9 +137,10 @@ namespace Olive.Views
             }
         }
 
-        public void buyitem_clicked(object sender, EventArgs e)
+        public async void buyitem_clicked(object sender, EventArgs e)
         {
-
+            var orderPage = new OrderPage(productID);
+            await Navigation.PushModalAsync(orderPage, false);
         }
 
         public void closePage(object sender, EventArgs e)

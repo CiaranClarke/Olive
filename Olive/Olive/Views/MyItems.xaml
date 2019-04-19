@@ -3,20 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Olive.Views.MyItems">
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
-            <Image Source="deleteIcon.png" Margin="10">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="closePage" NumberOfTapsRequired="1" CommandParameter="1"/>
-                </Image.GestureRecognizers>
-            </Image>
-            </StackLayout>
-            <StackLayout Margin="10">
-                <Label Text="My Items" TextColor="Black" HorizontalOptions="CenterAndExpand" FontSize="24"/>
-            </StackLayout>
-            <StackLayout x:Name="itemsStack" Margin="10" HorizontalOptions="CenterAndExpand">
+        <Grid>
+            <ScrollView Padding="10">
+                <Grid Padding="10" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            </StackLayout>
-        </StackLayout>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackLayout Grid.Row="0" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                            <Image Source="deleteIcon.png" Margin="10">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="closePage" NumberOfTapsRequired="1" CommandParameter="1"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </StackLayout>
+                        <StackLayout Margin="10" Grid.Row="1" VerticalOptions="Start" HorizontalOptions="Start">
+                            <Label Text="My Items" TextColor="Black" HorizontalOptions="CenterAndExpand" FontSize="24"/>
+                        </StackLayout>
+                        <StackLayout Grid.Row="2" x:Name="itemsStack" Margin="10" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand">
+
+                        </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

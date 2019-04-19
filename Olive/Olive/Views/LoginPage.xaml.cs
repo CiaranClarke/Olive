@@ -35,11 +35,8 @@ namespace Olive.Views
         {
             base.OnAppearing();
 
-            //txt_Email.Text = "";
-            //txt_Password.Text = "";
-
-            txt_Email.Text = "john@test.com";
-            txt_Password.Text = "Music4Life!";
+            txt_Email.Text = "";
+            txt_Password.Text = "";
         }
 
         public async void OnPasswordRecoveryTapped(object sender, EventArgs e)
@@ -148,7 +145,7 @@ namespace Olive.Views
             }
             catch(Exception ex)
             {
-                await DisplayAlert("Login", ex.ToString(), "Ok");
+                await DisplayAlert("Login", "Email address or password are incorrect, please try again", "Ok");
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Firebase.Database;
+using Firebase.Database.Query;
 using Newtonsoft.Json;
 using Olive.AppSpecific;
 using PayPal.Forms;
@@ -18,16 +19,19 @@ namespace Olive.Views
 	public partial class OrderPage : ContentPage
 	{
         string productID;
-        private tblProducts prodObject;
+        //private tblProducts prodObject;
         private tblUser userObject;
+        private tblProducts product1;
 
         public OrderPage (string productKey)
 		{
-            productID = productKey;
-            PopulateInfo();
+            
 
             InitializeComponent ();
-		}
+
+            productID = productKey;
+            PopulateInfo();
+        }
 
         public async Task<tblProducts> GetItem()
         {
@@ -46,13 +50,55 @@ namespace Olive.Views
                     //.Child(data.User.LocalId)
                     .OnceAsync<tblProducts>();
 
-            var product = dbData.Where(a => a.Key == productID).ToList();
+            var products = dbData.Where(a => a.Key == productID).ToList();
 
-            var json = JsonConvert.SerializeObject(product);
-            prodObject = JsonConvert.DeserializeObject<tblProducts>(json);
+            foreach (var e in products)
+            {
+                e.Object.productNo = e.Key;
+                var json = JsonConvert.SerializeObject(e.Object);
+                var prodObject = JsonConvert.DeserializeObject<tblProducts>(json);
+                product1 = prodObject;
+            }
+           
+            return product1;
+        }
+
+        public async Task<tblProducts> DeleteItem()
+        {
+            //var authProvider = new FirebaseAuthProvider(new FirebaseConfig("AIzaSyCpxDUBeaHiEKaNUEyBPgJxjRDAlGtxW1U"));
+            //var data = await authProvider.CreateUserWithEmailAndPasswordAsync(email, password);
+
+            var db = new FirebaseClient(
+              "https://olive-4a870.firebaseio.com/",
+              new FirebaseOptions
+              {
+                  AuthTokenAsyncFactory = () => Task.FromResult(Settings.authToken)
+              });
+
+            var dbData = await db
+                    .Child("Products")
+                    //.Child(data.User.LocalId)
+                    .OnceAsync<tblProducts>();
+
+            var products = dbData.Where(a => a.Key == productID).ToList();
+
+            foreach (var e in products)
+            {
+                e.Object.productNo = e.Key;
+                var json = JsonConvert.SerializeObject(e.Object);
+                var prodObject = JsonConvert.DeserializeObject<tblProducts>(json);
+                product1 = prodObject;
+            }
+
+            await db.Child("Products").Child(productID).DeleteAsync();
 
             //product1.Add(prodObject);
-            return prodObject;
+            return product1;
+        }
+
+        public void closePage(object sender, EventArgs e)
+        {
+            Navigation.PopModalAsync();
         }
 
         public async Task<tblUser> GetUser()
@@ -68,14 +114,18 @@ namespace Olive.Views
               });
 
             var dbData = await db
-                    .Child("Products")
+                    .Child("Users")
                     //.Child(data.User.LocalId)
                     .OnceAsync<tblUser>();
 
             var user = dbData.Where(a => a.Key == Settings.UserKey).ToList();
 
-            var json = JsonConvert.SerializeObject(user);
-            userObject = JsonConvert.DeserializeObject<tblUser>(json);
+            foreach (var e in user)
+            {
+                e.Object.userNo = e.Key;
+                var json = JsonConvert.SerializeObject(e.Object);
+                userObject = JsonConvert.DeserializeObject<tblUser>(json);
+            }
                 
             //userInfo.Add(prodObject);
 
@@ -87,27 +137,29 @@ namespace Olive.Views
             await GetItem();
             await GetUser();
 
-
+            txt_FirstName.Text = userObject.userFirstName;
+            txt_LastName.Text = userObject.userLastName;
+            txtAddressLine1.Text = userObject.userAddressLine1;
+            txtAddressLine2.Text = userObject.userAddressLine2;
+            txtCity.Text = userObject.userCity;
+            txtCounty.Text = userObject.userCounty;
+            txtPostcode.Text = userObject.userPostcode;
+            txtItemName.Text = product1.prodDescription;
+            txtItemSize.Text = product1.prodSize;
+            txtItemPrice.Text = product1.prodPrice.ToString();
         }
 
         public async void ConfirmOrder(object sender, EventArgs e)
         {
-            var answer = await DisplayAlert("Confirmation", "To confirm your order you must now make payment through Paypal", "Ok", "Cancel");
+            var answer = await DisplayAlert("Confirmation", "To confirm your order you must now make payment", "Ok", "Cancel");
             if (answer)
             {
-                var result = await CrossPayPalManager.Current.Buy(new PayPalItem("Test Product", new Decimal(12.50), "GBP"), new Decimal(0));
-                if (result.Status == PayPalStatus.Cancelled)
-                {
-                    Debug.WriteLine("Cancelled");
-                }
-                else if (result.Status == PayPalStatus.Error)
-                {
-                    Debug.WriteLine(result.ErrorMessage);
-                }
-                else if (result.Status == PayPalStatus.Successful)
-                {
-                    Debug.WriteLine(result.ServerResponse.Response.Id);
-                }
+                await DeleteItem();
+                //await Navigation.PopModalAsync();
+                var paymentPage = new PaymentPage();
+                await Navigation.PushModalAsync(paymentPage, false);
+
+                
             }
         }
     }

@@ -3,8 +3,82 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Olive.Views.OrderPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Button Clicked="ConfirmOrder" Text="Confirm Order"/>
-        </StackLayout>
+        <Grid>
+            <ScrollView Padding="10">
+                <Grid Padding="10" ColumnSpacing="0" RowSpacing="0" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackLayout Grid.Column="0" Grid.Row="0" Margin="10" VerticalOptions="StartAndExpand" HorizontalOptions="StartAndExpand">
+                        <Image Source="deleteIcon.png" Margin="10">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="closePage" NumberOfTapsRequired="1" CommandParameter="1"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="1" Margin="10" VerticalOptions="Start">
+                        <Label x:Name="txt_FirstName"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" Grid.Row="1" Margin="10" VerticalOptions="Start">
+                        <Label x:Name="txt_LastName"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="2" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtAddressLine1"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="3" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtAddressLine2"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="4" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtCity"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="5" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtCounty"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="6" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtPostcode"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="8" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtItemName"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="9" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtItemSize"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="10" Margin="10" Grid.ColumnSpan="2" VerticalOptions="Start">
+                        <Label x:Name="txtItemPrice"/>
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="0" Grid.Row="11" Margin="10" Grid.ColumnSpan="2" VerticalOptions="EndAndExpand" HorizontalOptions="CenterAndExpand">
+                        <Button Clicked="ConfirmOrder" Text="Confirm Order"/>
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
